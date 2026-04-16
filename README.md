@@ -26,7 +26,7 @@ viandalibre_web/
 ├── sql/                      # Scripts SQL
 └── .gitignore
 
-> Nota: el proyecto actual usa controladores como carpeta de controladores.
+
 
 ## Instalación
 
