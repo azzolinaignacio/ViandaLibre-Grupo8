@@ -1,33 +1,30 @@
+# ViandaLibre Web - Grupo N° 6
 
+Sistema web para la gestión de viandas de "Doña Rosa", desarrollado para la universidad.
 
-# ViandaLibre Web
+## 👥 Integrantes
+* **Delfina Ibañez**
+* **Candela Aguilar**
+* **Carolina Fetta**
 
-Sistema web para la gestión de viandas de Doña Rosa, desarrollado en PHP con patrón MVC.
+## 🎯 Objetivo del Proyecto
+El objetivo principal es implementar un sistema funcional y escalable utilizando el **patrón de diseño MVC (Modelo-Vista-Controlador)**. Se ha puesto especial énfasis en la organización de carpetas para separar la lógica de negocio, el acceso a datos y la interfaz de usuario.
 
-## Resumen
+---
 
-Este proyecto está construido como una aplicación PHP sencilla con:
+## 📂 Estructura del Proyecto (Orden MVC)
+Para cumplir con el objetivo de orden, el proyecto se organiza de la siguiente manera:
 
-- app para la lógica MVC
-- config para la configuración de base de datos
-- public como punto de entrada público
-- includes para componentes globales como header, footer y auth
-- sql para crear la base de datos y las tablas necesarias
-
-## Estructura del Proyecto
-
-```
 viandalibre_web/
 ├── app/
-│   ├── controladores/        # Controladores del sistema
-│   ├── models/               # Modelos de datos
-│   └── views/                # Vistas HTML
-├── config/                   # Configuración (DB)
-├── public/                   # Punto de entrada público
-├── includes/                 # Componentes transversales
-├── sql/                      # Scripts SQL
-└── .gitignore
-```
+│   ├── controladores/    # (C) Lógica de control y manejo de peticiones
+│   ├── models/           # (M) Conexión a la DB y gestión de datos
+│   └── views/            # (V) Archivos HTML y presentación visual
+├── config/               # Configuración de base de datos (db.php)
+├── public/               # Único punto de acceso público (index.php, CSS, JS)
+├── includes/             # Componentes globales (header, footer, auth)
+├── sql/                  # Scripts de creación de tablas y base de datos
+└── .gitignore            # Archivos excluidos de Git
 
 > Nota: el proyecto actual usa controladores como carpeta de controladores.
 
