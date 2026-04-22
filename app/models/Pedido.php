@@ -7,6 +7,7 @@ class Pedido {
     private $pdo;
 
     public function __construct() {
+        // Traemos la conexión desde el archivo db.php
         global $pdo;
         $this->pdo = $pdo;
     }
@@ -23,8 +24,17 @@ class Pedido {
     }
 
     public function create($data) {
-        $stmt = $this->pdo->prepare("INSERT INTO pedidos (cliente, viandas, total, fecha) VALUES (?, ?, ?, NOW())");
-        return $stmt->execute([$data['cliente'], json_encode($data['viandas']), $data['total']]);
+        // CORRECCIÓN: Usamos $this->pdo en lugar de $this->db
+        $sql = "INSERT INTO pedidos (cliente, vianda_id, total, status) 
+                VALUES (:cliente, :vianda_id, :total, 'pendiente')";
+        
+        $stmt = $this->pdo->prepare($sql);
+        
+        return $stmt->execute([
+            ':cliente'   => $data['cliente'],
+            ':vianda_id' => $data['vianda_id'], 
+            ':total'     => $data['total']
+        ]);
     }
 
     public function updateStatus($id, $status) {

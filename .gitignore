@@ -32,3 +32,6 @@ temp/
 
 # Cache
 cache/
+
+# Configuración local de base de datos
+config/db.php
