@@ -22,6 +22,11 @@ vendor/
 .vscode/
 .idea/
 
+# Recursos de Usuario
+# No subir las fotos que Doña Rosa carga en su servidor local
+public/assets/img/*
+!public/assets/img/.gitkeep
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -32,6 +37,3 @@ temp/
 
 # Cache
 cache/
-
-# Configuración local de base de datos
-config/db.php

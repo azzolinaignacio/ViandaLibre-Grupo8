@@ -31,7 +31,7 @@ class ViandaController {
                 'nombre' => $_POST['nombre'],
                 'descripcion' => $_POST['descripcion'],
                 'precio' => $_POST['precio'],
-                'imagen' => $_POST['imagen']
+                'imagen' => $_POST['imagen_url']
             ];
             $this->viandaModel->create($data);
             header('Location: ' . BASE_URL . '/admin/viandas');
@@ -46,7 +46,7 @@ class ViandaController {
                 'nombre' => $_POST['nombre'],
                 'descripcion' => $_POST['descripcion'],
                 'precio' => $_POST['precio'],
-                'imagen' => $_POST['imagen']
+                'imagen' => $_POST['imagen_url']
             ];
             $this->viandaModel->update($id, $data);
             header('Location: ' . BASE_URL . '/admin/viandas');

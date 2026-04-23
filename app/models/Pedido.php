@@ -7,7 +7,6 @@ class Pedido {
     private $pdo;
 
     public function __construct() {
-        // Traemos la conexión desde el archivo db.php
         global $pdo;
         $this->pdo = $pdo;
     }
@@ -18,32 +17,23 @@ class Pedido {
     }
 
     public function getById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM pedidos WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM pedidos WHERE id_pedido = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function create($data) {
-        // CORRECCIÓN: Usamos $this->pdo en lugar de $this->db
-        $sql = "INSERT INTO pedidos (cliente, vianda_id, total, status) 
-                VALUES (:cliente, :vianda_id, :total, 'pendiente')";
-        
-        $stmt = $this->pdo->prepare($sql);
-        
-        return $stmt->execute([
-            ':cliente'   => $data['cliente'],
-            ':vianda_id' => $data['vianda_id'], 
-            ':total'     => $data['total']
-        ]);
+        $stmt = $this->pdo->prepare("INSERT INTO pedidos (cliente_nombre, id_pedido, total_pago, fecha_pedido) VALUES (?, ?, ?, NOW())");
+        return $stmt->execute([$data['cliente'], json_encode($data['viandas']), $data['total']]);
     }
 
-    public function updateStatus($id, $status) {
-        $stmt = $this->pdo->prepare("UPDATE pedidos SET status = ? WHERE id = ?");
-        return $stmt->execute([$status, $id]);
+    public function updateStatus($id, $estado) {
+        $stmt = $this->pdo->prepare("UPDATE pedidos SET estado = ? WHERE id_pedido = ?");
+        return $stmt->execute([$estado, $id]);
     }
 
     public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM pedidos WHERE id = ?");
+        $stmt = $this->pdo->prepare("DELETE FROM pedidos WHERE id_pedido = ?");
         return $stmt->execute([$id]);
     }
 }

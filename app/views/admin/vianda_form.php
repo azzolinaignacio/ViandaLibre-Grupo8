@@ -19,7 +19,7 @@ requireLogin();
     <input type="number" step="0.01" name="precio" value="<?php echo $vianda['precio'] ?? ''; ?>" required>
 
     <label>Imagen:</label>
-    <input type="text" name="imagen" value="<?php echo $vianda['imagen'] ?? ''; ?>" required>
+    <input type="text" name="imagen_url" value="<?php echo $vianda['imagen_url'] ?? ''; ?>" required>
 
     <button type="submit"><?php echo isset($vianda) ? 'Actualizar' : 'Crear'; ?></button>
 </form>

@@ -36,8 +36,8 @@ class PedidoController {
 
     public function updateStatus($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $status = $_POST['status'];
-            $this->pedidoModel->updateStatus($id, $status);
+            $estado = $_POST['estado'];
+            $this->pedidoModel->updateStatus($id, $estado);
             header('Location: ' . BASE_URL . '/admin/pedidos');
         }
     }

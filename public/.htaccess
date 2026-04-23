@@ -1,6 +1,14 @@
 RewriteEngine On
+RewriteBase /viandas/public/
 
-# Redirigir todas las peticiones a index.php si no es un archivo o directorio existente
+# REGLA DE ORO: Si el archivo existe físicamente, cargalo y pará acá (L = Last)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Si no existe, pero es la carpeta assets, no hagas nada (evita el bucle)
+RewriteRule ^assets/(.*)$ - [L]
+
+# Todo lo demás que no sea un archivo o carpeta real, al index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]

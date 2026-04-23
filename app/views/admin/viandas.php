@@ -26,14 +26,14 @@ requireLogin();
     <tbody>
         <?php foreach ($viandas as $vianda): ?>
             <tr>
-                <td><?php echo $vianda['id']; ?></td>
+                <td><?php echo $vianda['id_vianda']; ?></td>
                 <td><?php echo $vianda['nombre']; ?></td>
                 <td><?php echo substr($vianda['descripcion'], 0, 50) . '...'; ?></td>
                 <td>$<?php echo $vianda['precio']; ?></td>
-                <td><?php echo $vianda['imagen']; ?></td>
+                <td><?php echo $vianda['imagen_url']; ?></td>
                 <td>
-                    <a href="<?php echo BASE_URL; ?>/admin/viandas/update/<?php echo $vianda['id']; ?>" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="<?php echo BASE_URL; ?>/admin/viandas/delete/<?php echo $vianda['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                    <a href="<?php echo BASE_URL; ?>/admin/viandas/update/<?php echo $vianda['id_vianda']; ?>" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="<?php echo BASE_URL; ?>/admin/viandas/delete/<?php echo $vianda['id_vianda']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>
