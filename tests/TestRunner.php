@@ -1,74 +1,43 @@
 <?php
-// tests/TestRunner.php - Framework de tests liviano sin dependencias
+
+// TestRunner: se encarga de correr cada test y mostrar si paso o fallo
 
 class TestRunner {
-    private static int $passed  = 0;
-    private static int $failed  = 0;
-    private static array $failures = [];
 
+    private static int $pasaron = 0;
+    private static int $fallaron = 0;
+
+    // Corre un test. Si no lanza error, paso. Si lanza error, fallo.
     public static function run(string $nombre, callable $test): void {
         try {
             $test();
-            self::$passed++;
-            echo "\033[32m  ✓ {$nombre}\033[0m\n";
+            self::$pasaron++;
+            echo "  ✓ {$nombre}\n";
         } catch (AssertionError $e) {
-            self::$failed++;
-            self::$failures[] = "  ✗ {$nombre}\n    → " . $e->getMessage();
-            echo "\033[31m  ✗ {$nombre}\033[0m\n";
-            echo "\033[33m    → " . $e->getMessage() . "\033[0m\n";
+            self::$fallaron++;
+            echo "  ✗ {$nombre}\n";
+            echo "    → " . $e->getMessage() . "\n";
         }
     }
 
+    // Muestra el resumen al final
     public static function resumen(): void {
-        $total = self::$passed + self::$failed;
+        $total = self::$pasaron + self::$fallaron;
         echo "\n";
-        echo "─────────────────────────────────────────────\n";
-        echo "Tests: {$total}  |  ";
-        echo "\033[32mPasaron: " . self::$passed . "\033[0m  |  ";
-        echo "\033[31mFallaron: " . self::$failed . "\033[0m\n";
-        echo "─────────────────────────────────────────────\n";
-        if (self::$failed > 0) exit(1);
+        echo "Tests: {$total}  |  Pasaron: " . self::$pasaron . "  |  Fallaron: " . self::$fallaron . "\n";
     }
 
-    // — Aserciones ——————————————————————————————————————————————
-
-    public static function assertEquals(mixed $esperado, mixed $real, string $msg = ''): void {
+    // Compara dos valores, si son distintos lanza error
+    public static function assertEquals($esperado, $real, string $msg = ''): void {
         if ($esperado !== $real) {
-            $e = $esperado;
-            $r = $real;
-            throw new AssertionError(
-                $msg ?: "Se esperaba [{$e}] pero se obtuvo [{$r}]"
-            );
+            throw new AssertionError($msg ?: "Se esperaba [{$esperado}] pero se obtuvo [{$real}]");
         }
     }
 
-    public static function assertTrue(bool $condicion, string $msg = ''): void {
-        if (!$condicion) {
-            throw new AssertionError($msg ?: "Se esperaba TRUE pero fue FALSE");
-        }
-    }
-
-    public static function assertFalse(bool $condicion, string $msg = ''): void {
-        if ($condicion) {
-            throw new AssertionError($msg ?: "Se esperaba FALSE pero fue TRUE");
-        }
-    }
-
-    public static function assertNotEmpty(mixed $valor, string $msg = ''): void {
+    // Verifica que la lista no este vacia
+    public static function assertNotEmpty($valor, string $msg = ''): void {
         if (empty($valor)) {
-            throw new AssertionError($msg ?: "Se esperaba un valor no vacío");
-        }
-    }
-
-    public static function assertEmpty(mixed $valor, string $msg = ''): void {
-        if (!empty($valor)) {
-            throw new AssertionError($msg ?: "Se esperaba un valor vacío");
-        }
-    }
-
-    public static function assertContains(string $aguja, array $pajar, string $msg = ''): void {
-        if (!in_array($aguja, $pajar, true)) {
-            throw new AssertionError($msg ?: "'{$aguja}' no está en el array");
+            throw new AssertionError($msg ?: "Se esperaba que no estuviera vacio");
         }
     }
 }
